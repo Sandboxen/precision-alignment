@@ -768,6 +768,15 @@ function precision_align_constraint_func( len, ply )
 	
 	local LPos1 = Vector( data.LPos1.x, data.LPos1.y, data.LPos1.z )
 	local LPos2 = Vector( data.LPos2.x, data.LPos2.y, data.LPos2.z )
+	local EntPos1 = data.Ent1Pos
+	local EntPos2 = data.Ent2Pos
+	if(IsValid(Ent1) and !Ent1:IsWorld()) then
+		Ent1:SetPos(EntPos1)
+	end
+	if(IsValid(Ent2) and !Ent2:IsWorld()) then
+		Ent2:SetPos(EntPos2)
+	end
+	
 	local vars = data.vars
 	
 	local const

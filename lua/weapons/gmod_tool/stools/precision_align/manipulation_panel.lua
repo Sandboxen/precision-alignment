@@ -2,7 +2,7 @@
 
 if SERVER then return end
 
-local PA_VERSION = 5
+local PA_VERSION = 9
 	
 // Standard functions
 local PA = "precision_align"
@@ -104,18 +104,18 @@ function MANIPULATION_FRAME:Init()
 	self.rotation_functions_tab = vgui.Create( "PA_Rotation_Functions_Tab", self.body )
 	self.constraints_tab = vgui.Create( "PA_Constraints_Tab", self.body )
 
-	self.panel:AddSheet( "Display Options", self.displays_tab, "gui/silkicons/picture_edit", false, false )
-	self.panel:AddSheet( "Points", self.points_tab, "gui/silkicons/add", false, false )
+	self.panel:AddSheet( "Display Options", self.displays_tab, "icon16/picture_edit.png", false, false )
+	self.panel:AddSheet( "Points", self.points_tab, "icon16/add.png", false, false )
 		self.points_tab.tab = self.panel.Items[2].Tab
-	self.panel:AddSheet( "Lines", self.lines_tab, "gui/silkicons/check_on", false, false )
+	self.panel:AddSheet( "Lines", self.lines_tab, "icon16/tick.png", false, false )
 		self.lines_tab.tab = self.panel.Items[3].Tab
-	self.panel:AddSheet( "Planes", self.planes_tab, "gui/silkicons/world", false, false )
+	self.panel:AddSheet( "Planes", self.planes_tab, "icon16/world.png", false, false )
 		self.planes_tab.tab = self.panel.Items[4].Tab
-	self.panel:AddSheet( "Move Constructs", self.move_tab, "gui/silkicons/folder_go", false, false )
-	self.panel:AddSheet( "Functions", self.functions_tab, "gui/silkicons/plugin", false, false )
-	self.panel:AddSheet( "Rotation", self.rotation_tab, "gui/silkicons/arrow_refresh", false, false )
-	self.panel:AddSheet( "Rotation Functions", self.rotation_functions_tab, "gui/silkicons/arrow_refresh", false, false )
-	self.panel:AddSheet( "Constraints", self.constraints_tab, "gui/silkicons/anchor", false, false )
+	self.panel:AddSheet( "Move Constructs", self.move_tab, "icon16/folder_go.png", false, false )
+	self.panel:AddSheet( "Functions", self.functions_tab, "icon16/plugin.png", false, false )
+	self.panel:AddSheet( "Rotation", self.rotation_tab, "icon16/arrow_refresh.png", false, false )
+	self.panel:AddSheet( "Rotation Functions", self.rotation_functions_tab, "icon16/arrow_refresh.png", false, false )
+	self.panel:AddSheet( "Constraints", self.constraints_tab, "icon16/anchor.png", false, false )
 	
 	
 	// Help button
@@ -3153,6 +3153,8 @@ function CONSTRAINTS_TAB:Init()
 			data.Type = activepanel.Constraint
 			data.Ent1 = Ent1:EntIndex()
 			data.Ent2 = Ent2:EntIndex()
+			data.Ent1Pos = Ent1:GetPos()
+			data.Ent2Pos = Ent2:GetPos()
 			data.LPos1 = { x = LPos1.x, y = LPos1.y, z = LPos1.z }
 			data.LPos2 = { x = LPos2.x, y = LPos2.y, z = LPos2.z }
 			data.vars = constraint_vars
@@ -3408,7 +3410,6 @@ function CONSTRAINTS_BALLSOCKET_ADV_TAB:Init()
 		self.slider_xmin:SetPos(20, 170)
 		self.slider_xmin:SetWide(150)
 		self.slider_xmin:SetMinMax(-180, 180)
-		self.slider_xmin:SetDecimals(1)
 		self.slider_xmin:SetText( "X Min" )
 		self.slider_xmin:SetConVar( PA_ .. "ballsocket_adv_xmin" )
 	
@@ -3417,7 +3418,6 @@ function CONSTRAINTS_BALLSOCKET_ADV_TAB:Init()
 		self.slider_ymin:SetPos(20, 220)
 		self.slider_ymin:SetWide(150)
 		self.slider_ymin:SetMinMax(-180, 180)
-		self.slider_ymin:SetDecimals(1)
 		self.slider_ymin:SetText( "Y Min" )
 		self.slider_ymin:SetConVar( PA_ .. "ballsocket_adv_ymin" )
 	
@@ -3426,7 +3426,6 @@ function CONSTRAINTS_BALLSOCKET_ADV_TAB:Init()
 		self.slider_zmin:SetPos(20, 270)
 		self.slider_zmin:SetWide(150)
 		self.slider_zmin:SetMinMax(-180, 180)
-		self.slider_zmin:SetDecimals(1)
 		self.slider_zmin:SetText( "Z Min" )
 		self.slider_zmin:SetConVar( PA_ .. "ballsocket_adv_zmin" )
 	
@@ -3435,7 +3434,6 @@ function CONSTRAINTS_BALLSOCKET_ADV_TAB:Init()
 		self.slider_xmax:SetPos(190, 170)
 		self.slider_xmax:SetWide(150)
 		self.slider_xmax:SetMinMax(-180, 180)
-		self.slider_xmax:SetDecimals(1)
 		self.slider_xmax:SetText( "X Max" )
 		self.slider_xmax:SetConVar( PA_ .. "ballsocket_adv_xmax" )
 	
@@ -3444,7 +3442,6 @@ function CONSTRAINTS_BALLSOCKET_ADV_TAB:Init()
 		self.slider_ymax:SetPos(190, 220)
 		self.slider_ymax:SetWide(150)
 		self.slider_ymax:SetMinMax(-180, 180)
-		self.slider_ymax:SetDecimals(1)
 		self.slider_ymax:SetText( "Y Max" )
 		self.slider_ymax:SetConVar( PA_ .. "ballsocket_adv_ymax" )
 	
@@ -3453,7 +3450,6 @@ function CONSTRAINTS_BALLSOCKET_ADV_TAB:Init()
 		self.slider_zmax:SetPos(190, 270)
 		self.slider_zmax:SetWide(150)
 		self.slider_zmax:SetMinMax(-180, 180)
-		self.slider_zmax:SetDecimals(1)
 		self.slider_zmax:SetText( "Z Max" )
 		self.slider_zmax:SetConVar( PA_ .. "ballsocket_adv_zmax" )
 	
@@ -3462,7 +3458,6 @@ function CONSTRAINTS_BALLSOCKET_ADV_TAB:Init()
 		self.slider_xfric:SetPos(360, 170)
 		self.slider_xfric:SetWide(150)
 		self.slider_xfric:SetMinMax(-180, 180)
-		self.slider_xfric:SetDecimals(1)
 		self.slider_xfric:SetText( "X Friction" )
 		self.slider_xfric:SetConVar( PA_ .. "ballsocket_adv_xfric" )
 	
@@ -3471,7 +3466,6 @@ function CONSTRAINTS_BALLSOCKET_ADV_TAB:Init()
 		self.slider_yfric:SetPos(360, 220)
 		self.slider_yfric:SetWide(150)
 		self.slider_yfric:SetMinMax(-180, 180)
-		self.slider_yfric:SetDecimals(1)
 		self.slider_yfric:SetText( "Y Friction" )
 		self.slider_yfric:SetConVar( PA_ .. "ballsocket_adv_yfric" )
 	
@@ -3480,7 +3474,6 @@ function CONSTRAINTS_BALLSOCKET_ADV_TAB:Init()
 		self.slider_zfric:SetPos(360, 270)
 		self.slider_zfric:SetWide(150)
 		self.slider_zfric:SetMinMax(-180, 180)
-		self.slider_zfric:SetDecimals(1)
 		self.slider_zfric:SetText( "Z Friction" )
 		self.slider_zfric:SetConVar( PA_ .. "ballsocket_adv_zfric" )
 	
